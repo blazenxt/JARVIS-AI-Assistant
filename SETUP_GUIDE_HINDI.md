@@ -34,7 +34,31 @@ Ye project sirf ek basic script nahi hai, balki ek **Production-Ready Multi-Moda
 
 ---
 
-## 🚀 Step-by-Step Installation & Run Guide
+## 🚂 Railway.app Par 2 Minute Me Kaise Deploy Karein (Cloud 24x7 Server)
+
+Aap apne JARVIS Web HUD ko **Railway.app** cloud par host kar sakte hain jisse aap **duniya ke kisi bhi kone se apne Mobile, Laptop ya Tablet** se isse baat kar sakte hain:
+
+### Step 1: Railway.app Par Login Karein
+1. **[https://railway.app](https://railway.app)** par jayein aur apne GitHub account (`@blazenxt`) se login karein.
+2. **"New Project"** button par click karein -> **"Deploy from GitHub repo"** select karein.
+3. Apna repository select karein: **`blazenxt/JARVIS-AI-Assistant`**.
+
+### Step 2: Environment Variables Set Karein
+Project ki **Variables** tab me jaakar ye keys add karein:
+- `AI_BACKEND`: `groq` (ya `gemini` / `offline`)
+- `GROQ_API_KEY`: Aapki free Groq API key (from https://console.groq.com/keys)
+- `DEFAULT_CITY`: `Asansol`
+- `WAKE_WORD`: `jarvis`
+
+### Step 3: Public URL Open Karein!
+1. **Settings -> Networking** tab me jaakar **"Generate Domain"** par click karein.
+2. Railway aapko ek public link dega (jaise `https://jarvis-ai-assistant.up.railway.app`).
+3. Is link ko apne **Mobile ya PC ke Chrome Browser** me open karein!
+4. **"ACTIVATE VOICE (HEY JARVIS)"** button press karke aawaz se command dein — JARVIS aapke browser me wapas bolega! 🎉
+
+---
+
+## 🚀 Step-by-Step Local Installation & Run Guide (PC / Laptop / Termux)
 
 ### Step 1: Terminal Open Karein
 Aapke folder me jaakar terminal open karein:
@@ -126,4 +150,3 @@ Agar aap chahte hain ki JARVIS ki aawaz British style ke bajaye **Hinglish / Ind
 - **American Male Voice**: `EDGE_TTS_VOICE=en-US-ChristopherNeural`
 
 **Badhai ho Sir! Aapka apna J.A.R.V.I.S. AI Assistant tayyar hai!** 🎉
-Kisi bhi aur modification ya nayi skill ke liye batayega!

@@ -1,11 +1,13 @@
 # ==========================================
 # JARVIS AI ASSISTANT - DEPENDENCIES
+# Production & Cloud-Hosting Ready (Railway/Render)
 # ==========================================
 
 # 1. Voice Recognition & Audio Input
 SpeechRecognition>=3.10.0
-pyaudio>=0.2.13; sys_platform != "win32"
-# Note for Windows users: pip install pyaudio (or use pipwin if needed)
+# Note: For local desktop microphone input in CLI mode, install pyaudio:
+#   Windows: pip install pipwin && pipwin install pyaudio
+#   Mac/Linux: pip install pyaudio
 
 # 2. Text-to-Speech (Voice Output)
 edge-tts>=6.1.9      # High-quality natural Microsoft Edge neural voices
@@ -26,7 +28,7 @@ requests>=2.31.0     # Weather, news, and REST APIs
 wikipedia>=1.4.0     # Wikipedia summary search
 pywhatkit>=5.4       # Play YouTube videos & Google search
 
-# 6. Web Dashboard HUD (FastAPI Server)
+# 6. Web Dashboard HUD (FastAPI / Server Utilities)
 fastapi>=0.110.0
 uvicorn[standard]>=0.27.0
 jinja2>=3.1.3

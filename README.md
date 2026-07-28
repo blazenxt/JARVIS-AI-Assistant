@@ -36,6 +36,7 @@ Welcome to **J.A.R.V.I.S.** — an elite, multi-modal, highly intelligent person
    - Live telemetry gauges for CPU and RAM load.
    - Built-in **Web Speech API** for browser-based speech recognition and audio synthesis.
    - Live transcript log and quick-action command buttons.
+   - Fully compatible with cloud hosting (**Railway.app**, Render, Heroku) via dynamic `PORT` binding.
 
 ---
 
@@ -44,9 +45,10 @@ Welcome to **J.A.R.V.I.S.** — an elite, multi-modal, highly intelligent person
 ```
 jarvis/
 │
-├── config.py                 # Core configuration, environment loading, and default fallbacks
+├── config.py                 # Core configuration, environment loading, dynamic PORT binding
 ├── jarvis.py                 # Main CLI / Voice Assistant engine and interactive loop
-├── server.py                 # Lightweight REST API & Web HUD server (Port 8000)
+├── server.py                 # Lightweight REST API & Web HUD server
+├── Procfile & railway.json   # Cloud deployment configs for Railway / Render
 ├── requirements.txt          # Python dependencies
 ├── .env.example              # Example environment variables (copy to .env)
 ├── README.md                 # Technical documentation & usage guide
@@ -82,7 +84,25 @@ jarvis/
 
 ---
 
-## 🛠️ Installation & Setup
+## 🚂 Cloud Deployment on Railway.app (2-Minute Setup)
+
+You can deploy the JARVIS Holographic Web HUD & API Server to **Railway.app** so you can talk to JARVIS from your phone, laptop, or tablet anywhere in the world:
+
+1. Go to **[https://railway.app](https://railway.app)** and sign in with your GitHub account.
+2. Click **"New Project"** -> **"Deploy from GitHub repo"**.
+3. Select **`blazenxt/JARVIS-AI-Assistant`**.
+4. In **Variables**, add:
+   - `AI_BACKEND=groq`
+   - `GROQ_API_KEY=your_free_groq_api_key_here`
+   - `WAKE_WORD=jarvis`
+   - `DEFAULT_CITY=Asansol`
+5. Under **Settings -> Networking**, click **"Generate Domain"**.
+6. Open your newly generated public domain (e.g. `https://jarvis-ai-assistant.up.railway.app`) in Chrome or Edge!
+7. Click **"ACTIVATE VOICE (HEY JARVIS)"** on the Web HUD to speak to JARVIS using your browser microphone!
+
+---
+
+## 🛠️ Local Installation & Setup
 
 ### Step 1: Clone or Open Project
 Open a terminal in the project directory:

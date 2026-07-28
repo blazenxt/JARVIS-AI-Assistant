@@ -79,7 +79,7 @@ AUDIO_CACHE_DIR.mkdir(exist_ok=True)
 
 # --- WEB HUD SERVER SETTINGS ---
 WEB_HOST = "0.0.0.0"
-WEB_PORT = 8000
+WEB_PORT = int(os.getenv("PORT", 8000))
 
 def get_status_summary() -> dict:
     """Return a dictionary summarizing current JARVIS config status."""

@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     procps \
     gcc \
+    zstd \
+    tar \
     && rm -rf /var/lib/apt/lists/*
 
 # Install official Ollama Linux binaries

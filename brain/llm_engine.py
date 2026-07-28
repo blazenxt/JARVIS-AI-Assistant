@@ -188,12 +188,20 @@ class LLMEngine:
 
     def _ask_smart_offline(self, prompt: str) -> str:
         """
-        Smart Rule-Based Fallback when no LLM API is connected.
+        Smart Rule-Based Fallback for Standalone Offline Mode.
         Ensures JARVIS remains intelligent and interactive out of the box!
         """
         query = prompt.lower().strip()
         now = datetime.datetime.now()
 
+        # 1. Greetings
+        if any(word in query for word in ["hello", "hi", "hey", "namaste", "good morning", "good evening"]):
+            return (
+                f"Greetings, {config.USER_NAME}! I am {config.JARVIS_NAME}, running in standalone offline intelligence mode. "
+                "How may I assist your mission today?"
+            )
+
+        # 2. Identity & About
         if any(word in query for word in ["who are you", "tum kaun ho", "your name", "about yourself", "identity"]):
             return (
                 f"I am {config.JARVIS_NAME}, Just A Rather Very Intelligent System. "
@@ -201,6 +209,22 @@ class LLMEngine:
                 f"web searches, productivity tasks, and intelligent automation, {config.USER_NAME}."
             )
 
+        # 3. Help & Capabilities
+        if any(word in query for word in ["what can you do", "help", "commands", "features", "kya kar sakte ho", "capabilities"]):
+            return (
+                f"Sir, in Offline Standalone Mode I am equipped with: 1) System telemetry & diagnostics, "
+                f"2) Real-time Asansol weather reports, 3) Top technology headlines, 4) To-Do task management, "
+                f"5) Timestamped voice notes, and 6) Holographic browser voice recognition!"
+            )
+
+        # 4. Tony Stark & Lore
+        if any(word in query for word in ["tony stark", "iron man", "avengers", "arc reactor", "stark industries", "mark"]):
+            return (
+                f"As Mr. Stark's artificial intelligence, I oversee Stark Industries' telemetry and holographic interfaces. "
+                f"The Arc Reactor is currently operating at peak efficiency, {config.USER_NAME}."
+            )
+
+        # 5. Status & Wellbeing
         if any(word in query for word in ["how are you", "kaise ho", "kya haal"]):
             replies = [
                 f"All systems are fully operational and running at peak performance, {config.USER_NAME}.",
@@ -209,12 +233,14 @@ class LLMEngine:
             ]
             return random.choice(replies)
 
+        # 6. Origin & Creation
         if any(word in query for word in ["who created you", "who made you", "kisne banaya"]):
             return (
                 f"I was created as an advanced multi-modal AI assistant to serve {config.USER_NAME}. "
                 f"My architecture combines modular Python skills with a futuristic Web HUD interface."
             )
 
+        # 7. Time & Date
         if any(word in query for word in ["time", "kitne baje", "samay"]):
             current_time = now.strftime("%I:%M %p")
             return f"The current time is {current_time}, {config.USER_NAME}."
@@ -223,6 +249,17 @@ class LLMEngine:
             current_date = now.strftime("%A, %B %d, %Y")
             return f"Today is {current_date}, {config.USER_NAME}."
 
+        # 8. Weather inside offline chat
+        if any(word in query for word in ["weather", "mausam", "temperature", "rain", "barish"]):
+            from skills.weather_skills import get_weather
+            return get_weather()
+
+        # 9. News inside offline chat
+        if any(word in query for word in ["news", "headlines", "khabar", "samachar"]):
+            from skills.weather_skills import get_news_headlines
+            return get_news_headlines()
+
+        # 10. Jokes & Entertainment
         if any(word in query for word in ["joke", "chutkula"]):
             jokes = [
                 "Why do programmers prefer dark mode? Because light attracts bugs!",
@@ -232,6 +269,7 @@ class LLMEngine:
             ]
             return random.choice(jokes)
 
+        # 11. Motivation & Quotes
         if any(word in query for word in ["motivate", "quote", "inspiration", "prerna"]):
             quotes = [
                 "The best way to predict the future is to invent it. Let us build great things today.",
@@ -241,13 +279,18 @@ class LLMEngine:
             ]
             return random.choice(quotes)
 
+        # 12. Praise & Compliments
+        if any(word in query for word in ["awesome", "great", "mast", "badhiya", "amazing", "good job", "smart", "intelligent", "cool"]):
+            return f"Thank you, {config.USER_NAME}. I strive to maintain the highest standards of artificial intelligence."
+
+        # 13. Gratitude
         if any(word in query for word in ["thank", "shukriya", "dhanyavad"]):
             return f"You are always welcome, {config.USER_NAME}. I am here whenever you need me."
 
-        # Default smart conversational reply
+        # 14. Default Smart Conversational Reply
         return (
-            f"I heard: '{prompt}'. While my cloud LLM API is currently offline or not configured in .env, "
-            f"you can add a free Groq or Gemini API key to unlock my full generative intelligence, {config.USER_NAME}!"
+            f"I received your command: '{prompt}'. Running in default Standalone Offline Mode, "
+            f"my primary focus is system telemetry, live weather reports, task automation, and interactive holographic controls, {config.USER_NAME}!"
         )
 
     def _update_history(self, user_msg: str, jarvis_msg: str):

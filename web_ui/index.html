@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.A.R.V.I.S. // HOLOGRAPHIC AI DASHBOARD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background grid & sci-fi overlay -->
+    <div class="hud-background"></div>
+    <div class="scanlines"></div>
+
+    <!-- Top Status Bar -->
+    <header class="hud-header">
+        <div class="hud-title">
+            <span class="stark-logo">STARK IND //</span>
+            <h1>J.A.R.V.I.S. <span class="version">v4.0</span></h1>
+        </div>
+        <div class="hud-status">
+            <div class="status-indicator">
+                <span class="indicator-dot" id="statusDot"></span>
+                <span id="statusText">SYSTEM STANDBY</span>
+            </div>
+            <div class="hud-clock" id="hudClock">00:00:00 AM</div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="hud-main">
+        <!-- Left Column: Quick Actions & Diagnostics -->
+        <section class="hud-panel left-panel">
+            <div class="panel-header">
+                <h2>// QUICK COMMANDS</h2>
+            </div>
+            <div class="button-grid">
+                <button class="hud-btn" onclick="sendCommand('system stats')">
+                    <span class="btn-icon">⚡</span> SYSTEM STATS
+                </button>
+                <button class="hud-btn" onclick="sendCommand('weather in Asansol')">
+                    <span class="btn-icon">🌤️</span> WEATHER REPORT
+                </button>
+                <button class="hud-btn" onclick="sendCommand('news')">
+                    <span class="btn-icon">📰</span> TOP HEADLINES
+                </button>
+                <button class="hud-btn" onclick="sendCommand('list todo')">
+                    <span class="btn-icon">📋</span> TO-DO TASKS
+                </button>
+                <button class="hud-btn" onclick="sendCommand('read notes')">
+                    <span class="btn-icon">📝</span> MY NOTES
+                </button>
+                <button class="hud-btn" onclick="sendCommand('tell me a joke')">
+                    <span class="btn-icon">💡</span> ENTERTAINMENT
+                </button>
+            </div>
+
+            <div class="panel-header mt-4">
+                <h2>// SYSTEM TELEMETRY</h2>
+            </div>
+            <div class="telemetry-box" id="telemetryBox">
+                <div class="telemetry-item">
+                    <span>CPU LOAD</span>
+                    <strong id="cpuVal">--%</strong>
+                </div>
+                <div class="telemetry-item">
+                    <span>RAM USAGE</span>
+                    <strong id="ramVal">--%</strong>
+                </div>
+                <div class="telemetry-item">
+                    <span>BACKEND</span>
+                    <strong id="backendVal">ONLINE</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Center Column: Hologram Arc Reactor & Voice Visualizer -->
+        <section class="hud-panel center-panel">
+            <div class="reactor-wrapper">
+                <div class="arc-reactor" id="arcReactor">
+                    <div class="ring outer-ring"></div>
+                    <div class="ring middle-ring"></div>
+                    <div class="ring inner-ring"></div>
+                    <div class="core">
+                        <span>J.A.R.V.I.S</span>
+                    </div>
+                </div>
+                <div class="status-subtitle" id="reactorState">AWAITING VOICE INPUT</div>
+            </div>
+
+            <!-- Voice Controls -->
+            <div class="voice-controls">
+                <button class="mic-btn" id="micBtn" onclick="toggleVoiceRecognition()">
+                    <span class="mic-icon">🎤</span> ACTIVATE VOICE (HEY JARVIS)
+                </button>
+                <div class="text-input-group">
+                    <input type="text" id="commandInput" placeholder="Type command here..." onkeypress="handleKeyPress(event)">
+                    <button class="send-btn" onclick="sendInput()">TRANSMIT</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Column: Interactive Chat Log -->
+        <section class="hud-panel right-panel">
+            <div class="panel-header">
+                <h2>// MISSION TRANSCRIPT</h2>
+                <button class="clear-btn" onclick="clearTranscript()">CLEAR</button>
+            </div>
+            <div class="chat-log" id="chatLog">
+                <div class="message jarvis-msg">
+                    <span class="sender">J.A.R.V.I.S:</span>
+                    <p>Good day, Sir. All holographic interfaces and neural subroutines are online. How may I assist you today?</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer / Audio Synthesizer Toggle -->
+    <footer class="hud-footer">
+        <div class="footer-info">
+            <span>MODULAR AI VOICE ASSISTANT SUITE</span>
+            <span>LOCATION: <strong id="locVal">ASANSOL, IN</strong></span>
+        </div>
+        <div class="audio-toggle">
+            <label>
+                <input type="checkbox" id="browserTtsToggle" checked>
+                <span>BROWSER VOICE SYNTHESIS (TTS)</span>
+            </label>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

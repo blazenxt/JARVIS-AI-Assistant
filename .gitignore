@@ -1,0 +1,29 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables & secrets (NEVER commit .env)
+.env
+*.env
+.env.local
+.env.*.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Data cache and generated media
+data/audio_cache/*
+!data/audio_cache/.gitkeep
+data/screenshots/*
+!data/screenshots/.gitkeep
+
+# IDE and System files
+.vscode/
+.idea/
+.DS_Store
+*.log

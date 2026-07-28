@@ -1,0 +1,35 @@
+# ==========================================
+# JARVIS AI ASSISTANT - DEPENDENCIES
+# ==========================================
+
+# 1. Voice Recognition & Audio Input
+SpeechRecognition>=3.10.0
+pyaudio>=0.2.13; sys_platform != "win32"
+# Note for Windows users: pip install pyaudio (or use pipwin if needed)
+
+# 2. Text-to-Speech (Voice Output)
+edge-tts>=6.1.9      # High-quality natural Microsoft Edge neural voices
+pyttsx3>=2.90        # Offline fallback TTS engine
+pygame>=2.5.2        # Audio playback for edge-tts MP3 output
+
+# 3. AI Brain (LLM Backends)
+openai>=1.12.0       # For OpenAI GPT-3.5 / GPT-4 / Compatible endpoints (Ollama)
+groq>=0.4.2          # For ultra-fast Groq Llama3 / Mixtral API (Free tier available)
+google-generativeai>=0.4.0  # For Google Gemini API
+
+# 4. System & OS Automation Skills
+psutil>=5.9.8        # CPU, RAM, Battery monitoring
+pyautogui>=0.9.54    # Screenshots & basic GUI automation
+
+# 5. Web & Search Skills
+requests>=2.31.0     # Weather, news, and REST APIs
+wikipedia>=1.4.0     # Wikipedia summary search
+pywhatkit>=5.4       # Play YouTube videos & Google search
+
+# 6. Web Dashboard HUD (FastAPI Server)
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+jinja2>=3.1.3
+
+# 7. Utilities
+python-dotenv>=1.0.1 # Load API keys from .env file

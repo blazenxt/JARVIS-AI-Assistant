@@ -177,13 +177,14 @@ class LLMEngine:
                 model=config.OLLAMA_MODEL,
                 messages=messages,
                 temperature=0.7,
-                max_tokens=400
+                max_tokens=400,
+                timeout=6.0
             )
             reply = completion.choices[0].message.content
             self._update_history(prompt, reply)
             return reply
         except Exception as e:
-            print(f"[Ollama Error] {e}")
+            print(f"[Ollama Error] {e} -> Falling back to smart rules")
             return ""
 
     def _ask_smart_offline(self, prompt: str) -> str:

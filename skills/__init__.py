@@ -58,11 +58,58 @@ def dispatch_command(query: str) -> Optional[str]:
         return get_news_headlines(topic=topic)
 
     # --- 6. TIME & DATE ---
-    if any(phrase in cmd for phrase in ["what time", "current time", "time now", "kitne baje"]):
+    if any(phrase in cmd for phrase in ["time", "kitne baje", "samay", "what is the time"]):
         return get_current_time()
 
-    if any(phrase in cmd for phrase in ["what date", "today's date", "current date", "what is the date", "aaj ka din"]):
+    if any(phrase in cmd for phrase in ["date", "tarikh", "aaj ka din", "today", "what is the date"]):
         return get_current_date()
+
+    # --- 6.1 INSTANT CONVERSATIONAL SKILLS (GREETINGS, HELP, IDENTITY, LORE, JOKES) ---
+    if any(phrase in cmd for phrase in ["hello", "hi", "hey", "namaste", "good morning", "good evening"]):
+        return (
+            f"Greetings, {config.USER_NAME}! I am {config.JARVIS_NAME}, your personal AI assistant. "
+            "All systems are online and ready for your command."
+        )
+
+    if any(phrase in cmd for phrase in ["what can you do", "help", "commands", "features", "kya kar sakte ho", "capabilities"]):
+        return (
+            f"Sir, I am equipped with: 1) System telemetry & diagnostics, 2) Real-time Asansol weather reports, "
+            f"3) Top technology headlines, 4) To-Do task management, 5) Timestamped voice notes, "
+            f"6) Holographic browser voice recognition, and 7) Local AI intelligence!"
+        )
+
+    if any(phrase in cmd for phrase in ["who are you", "tum kaun ho", "your name", "about yourself", "identity"]):
+        return (
+            f"I am {config.JARVIS_NAME}, Just A Rather Very Intelligent System. "
+            f"I am your personal AI assistant, programmed to assist you with system control, "
+            f"web searches, productivity tasks, and intelligent automation, {config.USER_NAME}."
+        )
+
+    if any(phrase in cmd for phrase in ["tony stark", "iron man", "avengers", "arc reactor", "stark industries", "mark"]):
+        return (
+            f"As Mr. Stark's artificial intelligence, I oversee Stark Industries' telemetry and holographic interfaces. "
+            f"The Arc Reactor is currently operating at peak efficiency, {config.USER_NAME}."
+        )
+
+    if any(phrase in cmd for phrase in ["joke", "chutkula", "tell me a joke"]):
+        import random
+        jokes = [
+            "Why do programmers prefer dark mode? Because light attracts bugs!",
+            "There are 10 types of people in the world: those who understand binary, and those who don't.",
+            "Why did the AI go to art school? Because it wanted to master neural networks!",
+            "Why did the Python programmer get rejected? Because he had too many indentation errors!"
+        ]
+        return random.choice(jokes)
+
+    if any(phrase in cmd for phrase in ["motivate", "quote", "inspiration", "prerna"]):
+        import random
+        quotes = [
+            "The best way to predict the future is to invent it. Let us build great things today.",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+            "Every great developer started with a simple 'Hello World'. Keep pushing forward, Sir.",
+            "Iron Man didn't build the Mark I in a day. Great engineering takes focus and persistence."
+        ]
+        return random.choice(quotes)
 
     # --- 7. OPEN WEBSITES & APPS ---
     if cmd.startswith("open "):

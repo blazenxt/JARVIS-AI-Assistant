@@ -580,9 +580,127 @@ body {
     background: var(--cyan);
 }
 
-/* Responsive */
+/* --- RESPONSIVE & MOBILE OPTIMIZATION --- */
 @media (max-width: 1200px) {
     .hud-main {
         grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 15px;
+    }
+
+    /* Make Center Panel (Arc Reactor + Voice Control) appear FIRST on mobile & tablet */
+    .center-panel {
+        order: 1;
+        padding: 20px 15px;
+    }
+
+    /* Chat log appears SECOND */
+    .right-panel {
+        order: 2;
+    }
+
+    /* Quick commands & telemetry appear THIRD at the bottom */
+    .left-panel {
+        order: 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .hud-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 15px;
+    }
+
+    .hud-status {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .hud-title h1 {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    /* Compact Holographic Arc Reactor for Mobile Screens */
+    .arc-reactor {
+        width: 190px;
+        height: 190px;
+        margin-bottom: 15px;
+    }
+
+    .outer-ring {
+        width: 190px;
+        height: 190px;
+    }
+
+    .middle-ring {
+        width: 145px;
+        height: 145px;
+    }
+
+    .inner-ring {
+        width: 105px;
+        height: 105px;
+    }
+
+    .core {
+        width: 70px;
+        height: 70px;
+    }
+
+    .core span {
+        font-size: 0.65rem;
+    }
+
+    /* Two-column button grid on mobile for compactness */
+    .button-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .hud-btn {
+        padding: 12px 10px;
+        font-size: 0.72rem;
+        gap: 8px;
+        letter-spacing: 1px;
+    }
+
+    .btn-icon {
+        font-size: 1.1rem;
+    }
+
+    .mic-btn {
+        padding: 15px 10px;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .text-input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .text-input-group input, .send-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .chat-log {
+        max-height: 320px;
+    }
+
+    .hud-footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .footer-info {
+        flex-direction: column;
+        gap: 6px;
     }
 }

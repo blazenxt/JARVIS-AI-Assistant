@@ -73,6 +73,15 @@ class JarvisHTTPRequestHandler(SimpleHTTPRequestHandler):
             self._send_json_response(200, {"notes": notes})
             return
 
+        if parsed.path == "/api/config":
+            status_summary = config.get_status_summary()
+            self._send_json_response(200, {
+                "config": status_summary,
+                "groq_key_set": bool(config.GROQ_API_KEY and "your_" not in config.GROQ_API_KEY),
+                "gemini_key_set": bool(config.GEMINI_API_KEY and "your_" not in config.GEMINI_API_KEY)
+            })
+            return
+
         # Default static file server
         super().do_GET()
 
@@ -100,6 +109,26 @@ class JarvisHTTPRequestHandler(SimpleHTTPRequestHandler):
                 })
             except Exception as e:
                 self._send_json_response(500, {"error": str(e), "reply": f"Error executing command: {e}"})
+            return
+
+        if parsed.path == "/api/config":
+            try:
+                content_length = int(self.headers.get("Content-Length", 0))
+                post_data = self.rfile.read(content_length)
+                payload = json.loads(post_data.decode("utf-8"))
+
+                updated = config.update_config_batch(payload)
+                from brain import get_brain
+                get_brain().reinit_clients()
+
+                self._send_json_response(200, {
+                    "status": "success",
+                    "updated": updated,
+                    "summary": config.get_status_summary(),
+                    "reply": "System settings and API keys updated successfully, Sir."
+                })
+            except Exception as e:
+                self._send_json_response(500, {"error": str(e)})
             return
 
         self._send_json_response(404, {"error": "Endpoint not found."})

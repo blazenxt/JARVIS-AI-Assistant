@@ -232,7 +232,72 @@ function stopVoiceRecognition() {
     setJarvisState("STANDBY");
 }
 
-// --- 7. LOCAL DEMO FALLBACK (if backend API server not running) ---
+// --- 8. SYSTEM & API CONFIGURATION MODAL ---
+const configModal = document.getElementById("configModal");
+const backendSelect = document.getElementById("backendSelect");
+const groqKeyInput = document.getElementById("groqKeyInput");
+const geminiKeyInput = document.getElementById("geminiKeyInput");
+const defaultCityInput = document.getElementById("defaultCityInput");
+
+async function openConfigModal() {
+    try {
+        const res = await fetch("/api/config");
+        if (res.ok) {
+            const data = await res.json();
+            if (data.config) {
+                backendSelect.value = data.config.ai_backend || "offline";
+                defaultCityInput.value = data.config.default_city || "";
+                if (data.groq_key_set) {
+                    groqKeyInput.placeholder = "(Groq Key is Active)";
+                }
+                if (data.gemini_key_set) {
+                    geminiKeyInput.placeholder = "(Gemini Key is Active)";
+                }
+            }
+        }
+    } catch (e) {}
+    configModal.classList.add("open");
+}
+
+function closeConfigModal() {
+    configModal.classList.remove("open");
+}
+
+async function saveConfig() {
+    const payload = {
+        AI_BACKEND: backendSelect.value,
+        DEFAULT_CITY: defaultCityInput.value
+    };
+    if (groqKeyInput.value.trim()) {
+        payload.GROQ_API_KEY = groqKeyInput.value.trim();
+        payload.AI_BACKEND = "groq";
+    }
+    if (geminiKeyInput.value.trim()) {
+        payload.GEMINI_API_KEY = geminiKeyInput.value.trim();
+        payload.AI_BACKEND = "gemini";
+    }
+
+    try {
+        const res = await fetch("/api/config", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            closeConfigModal();
+            addMessage("J.A.R.V.I.S", data.reply || "System settings and API keys updated successfully.", false);
+            speakBrowserTTS(data.reply || "System settings and API keys updated successfully.");
+            fetchTelemetry();
+        } else {
+            alert("Failed to update settings. Please check console.");
+        }
+    } catch (err) {
+        alert("Error saving configuration: " + err.message);
+    }
+}
+
+// --- 9. LOCAL DEMO FALLBACK (if backend API server not running) ---
 function getLocalFallbackResponse(cmd) {
     const q = cmd.toLowerCase();
     if (q.includes("who are you") || q.includes("your name")) {
@@ -252,3 +317,4 @@ function getLocalFallbackResponse(cmd) {
     }
     return `I received command '${cmd}'. Connect the Python backend server (server.py) for live system automation and LLM intelligence!`;
 }
+

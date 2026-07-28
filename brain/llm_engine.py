@@ -54,6 +54,11 @@ class LLMEngine:
         self.history: List[Dict[str, str]] = []
         self._init_clients()
 
+    def reinit_clients(self):
+        """Reinitialize API clients when config settings are updated."""
+        self.backend = config.AI_BACKEND.lower()
+        self._init_clients()
+
     def _init_clients(self):
         """Initialize API clients based on available keys."""
         self.groq_client = None

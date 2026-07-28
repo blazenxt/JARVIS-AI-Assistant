@@ -56,6 +56,9 @@
                 <button class="hud-btn" onclick="sendCommand('tell me a joke')">
                     <span class="btn-icon">💡</span> ENTERTAINMENT
                 </button>
+                <button class="hud-btn config-btn" onclick="openConfigModal()">
+                    <span class="btn-icon">⚙️</span> API & SETTINGS
+                </button>
             </div>
 
             <div class="panel-header mt-4">
@@ -117,6 +120,45 @@
             </div>
         </section>
     </main>
+
+    <!-- Glowing Sci-Fi System Settings & API Modal -->
+    <div class="modal-overlay" id="configModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>// J.A.R.V.I.S. SYSTEM & API CONFIGURATION</h2>
+                <button class="close-btn" onclick="closeConfigModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="config-group">
+                    <label>// AI INTELLIGENCE BACKEND</label>
+                    <select id="backendSelect">
+                        <option value="groq">GROQ API (Ultra-Fast 70B - Recommended!)</option>
+                        <option value="gemini">GOOGLE GEMINI API (Free)</option>
+                        <option value="openai">OPENAI GPT-4o API</option>
+                        <option value="ollama">LOCAL OFFLINE OLLAMA (CPU)</option>
+                        <option value="offline">STANDALONE SMART RULES (No API Key)</option>
+                    </select>
+                </div>
+                <div class="config-group">
+                    <label>// GROQ API KEY (Free at console.groq.com/keys)</label>
+                    <input type="password" id="groqKeyInput" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxx">
+                </div>
+                <div class="config-group">
+                    <label>// GOOGLE GEMINI API KEY (Free at aistudio.google.com)</label>
+                    <input type="password" id="geminiKeyInput" placeholder="AIzaSyxxxxxxxxxxxxxxxxxxxxx">
+                </div>
+                <div class="config-group">
+                    <label>// DEFAULT CITY (For Weather Reports)</label>
+                    <input type="text" id="defaultCityInput" placeholder="Jaipur / Mumbai / Asansol">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="save-config-btn" onclick="saveConfig()">
+                    ⚡ SAVE & RECALIBRATE SYSTEMS
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer / Audio Synthesizer Toggle -->
     <footer class="hud-footer">

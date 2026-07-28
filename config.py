@@ -94,3 +94,61 @@ def get_status_summary() -> dict:
         "has_gemini_key": bool(GEMINI_API_KEY and "your_" not in GEMINI_API_KEY),
         "has_openai_key": bool(OPENAI_API_KEY and "your_" not in OPENAI_API_KEY),
     }
+
+def update_setting(key: str, val: str) -> bool:
+    """
+    Update a configuration setting in memory and save to .env file.
+    """
+    global AI_BACKEND, GROQ_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, DEFAULT_CITY, EDGE_TTS_VOICE
+
+    key_upper = key.upper()
+    os.environ[key_upper] = val
+
+    if key_upper == "AI_BACKEND":
+        AI_BACKEND = val.lower()
+    elif key_upper == "GROQ_API_KEY":
+        GROQ_API_KEY = val
+    elif key_upper == "GEMINI_API_KEY":
+        GEMINI_API_KEY = val
+    elif key_upper == "OPENAI_API_KEY":
+        OPENAI_API_KEY = val
+    elif key_upper == "DEFAULT_CITY":
+        DEFAULT_CITY = val.title()
+    elif key_upper == "EDGE_TTS_VOICE":
+        EDGE_TTS_VOICE = val
+
+    # Persist to .env file
+    try:
+        env_file = BASE_DIR / ".env"
+        lines = []
+        if env_file.exists():
+            with open(env_file, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+        
+        found = False
+        new_lines = []
+        for line in lines:
+            if line.strip().startswith(f"{key_upper}="):
+                new_lines.append(f"{key_upper}={val}\n")
+                found = True
+            else:
+                new_lines.append(line)
+        
+        if not found:
+            new_lines.append(f"{key_upper}={val}\n")
+
+        with open(env_file, "w", encoding="utf-8") as f:
+            f.writelines(new_lines)
+        return True
+    except Exception as e:
+        print(f"[Config Save Error] {e}")
+        return False
+
+def update_config_batch(settings: dict) -> dict:
+    """Update multiple config settings at once."""
+    updated = {}
+    for k, v in settings.items():
+        if v is not None and str(v).strip() != "":
+            update_setting(k, str(v).strip())
+            updated[k] = str(v).strip()
+    return updated

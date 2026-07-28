@@ -195,5 +195,47 @@ def dispatch_command(query: str) -> Optional[str]:
         except Exception:
             pass
 
+    # --- 14. DYNAMIC CONFIGURATION & BACKEND SWITCHING ---
+    if any(phrase in cmd for phrase in ["switch backend to ", "use backend ", "change backend to ", "use groq", "use gemini", "use offline", "use ollama"]):
+        from brain import get_brain
+        target = "offline"
+        if "groq" in cmd:
+            target = "groq"
+        elif "gemini" in cmd:
+            target = "gemini"
+        elif "ollama" in cmd:
+            target = "ollama"
+        elif "openai" in cmd:
+            target = "openai"
+        config.update_setting("AI_BACKEND", target)
+        get_brain().reinit_clients()
+        return f"AI Brain recalibrated, {config.USER_NAME}. Now operating on the '{target.upper()}' intelligence backend."
+
+    if any(phrase in cmd for phrase in ["set default city to ", "change city to ", "set city to "]):
+        for prefix in ["set default city to ", "change city to ", "set city to "]:
+            if prefix in cmd:
+                new_city = cmd.split(prefix)[-1].strip().title()
+                if new_city:
+                    config.update_setting("DEFAULT_CITY", new_city)
+                    return f"Default city location updated to {new_city}, {config.USER_NAME}."
+
+    if "set groq api key " in cmd or "set groq key " in cmd:
+        key_val = query.split("key ")[-1].strip()
+        if key_val:
+            config.update_setting("GROQ_API_KEY", key_val)
+            config.update_setting("AI_BACKEND", "groq")
+            from brain import get_brain
+            get_brain().reinit_clients()
+            return f"Groq API Key configured and verified, Sir. AI Brain switched to GROQ."
+
+    if "set gemini api key " in cmd or "set gemini key " in cmd:
+        key_val = query.split("key ")[-1].strip()
+        if key_val:
+            config.update_setting("GEMINI_API_KEY", key_val)
+            config.update_setting("AI_BACKEND", "gemini")
+            from brain import get_brain
+            get_brain().reinit_clients()
+            return f"Google Gemini API Key configured, Sir. AI Brain switched to GEMINI."
+
     # If no skill matched, return None so the LLM Brain handles it!
     return None

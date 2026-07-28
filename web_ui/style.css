@@ -580,6 +580,133 @@ body {
     background: var(--cyan);
 }
 
+/* --- SCI-FI SETTINGS & API MODAL --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 10, 17, 0.88);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal-overlay.open {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+}
+
+.modal-box {
+    background: var(--panel-bg);
+    border: 2px solid var(--cyan);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 0 35px var(--cyan-glow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 243, 255, 0.12);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--red);
+}
+
+.modal-body {
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.config-group label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+.config-group input, .config-group select {
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid var(--border-color);
+    padding: 12px 14px;
+    color: var(--text-main);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    outline: none;
+}
+
+.config-group input:focus, .config-group select:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-config-btn {
+    background: var(--cyan);
+    color: var(--bg-color);
+    border: none;
+    padding: 14px 22px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--cyan-glow);
+    transition: all 0.25s;
+    width: 100%;
+}
+
+.save-config-btn:hover {
+    background: var(--gold);
+    box-shadow: 0 0 20px var(--gold-glow);
+    transform: translateY(-2px);
+}
+
 /* --- RESPONSIVE & MOBILE OPTIMIZATION --- */
 @media (max-width: 1200px) {
     .hud-main {

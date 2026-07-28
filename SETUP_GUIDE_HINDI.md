@@ -34,21 +34,18 @@ Ye project sirf ek basic script nahi hai, balki ek **Production-Ready Multi-Moda
 
 ---
 
-## 🚂 Railway.app Par 2 Minute Me Kaise Deploy Karein (Cloud 24x7 Server)
+## 🚂 Railway.app Par 2 Minute Me Kaise Deploy Karein (Offline Ollama LLM + Web HUD)
 
-Aap apne JARVIS Web HUD ko **Railway.app** cloud par host kar sakte hain jisse aap **duniya ke kisi bhi kone se apne Mobile, Laptop ya Tablet** se isse baat kar sakte hain:
+Aap apne JARVIS Web HUD ko **Railway.app** cloud par host kar sakte hain jahan humne **Official Dockerfile ke zariye Local Offline Ollama LLM (`tinyllama`)** ka support daal diya hai! Ab bina kisi external API key ke bhi cloud container ke andar hi asli AI model chalega:
 
 ### Step 1: Railway.app Par Login Karein
 1. **[https://railway.app](https://railway.app)** par jayein aur apne GitHub account (`@blazenxt`) se login karein.
 2. **"New Project"** button par click karein -> **"Deploy from GitHub repo"** select karein.
 3. Apna repository select karein: **`blazenxt/JARVIS-AI-Assistant`**.
 
-### Step 2: Environment Variables Set Karein
-Project ki **Variables** tab me jaakar ye keys add karein:
-- `AI_BACKEND`: `groq` (ya `gemini` / `offline`)
-- `GROQ_API_KEY`: Aapki free Groq API key (from https://console.groq.com/keys)
-- `DEFAULT_CITY`: `Asansol`
-- `WAKE_WORD`: `jarvis`
+### Step 2: Automatic Docker Build (Ollama LLM Included!)
+- Railway automatically hamara naya **`Dockerfile`** use karega jisme **Ollama Linux Daemon** aur **`tinyllama` offline AI model** configured hai.
+- Aapko koi bhi API key lagane ki zaroorat nahi hai! Default backend automatic `AI_BACKEND=ollama` chalega.
 
 ### Step 3: Public URL Open Karein!
 1. **Settings -> Networking** tab me jaakar **"Generate Domain"** par click karein.

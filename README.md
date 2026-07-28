@@ -86,18 +86,14 @@ jarvis/
 
 ---
 
-## 🚂 Cloud Deployment on Railway.app (2-Minute Setup)
+## 🚂 Cloud Deployment on Railway.app (With Local Offline Ollama LLM)
 
-You can deploy the JARVIS Holographic Web HUD & API Server to **Railway.app** so you can talk to JARVIS from your phone, laptop, or tablet anywhere in the world:
+You can deploy the JARVIS Holographic Web HUD & API Server to **Railway.app**, which now includes native support for running **Offline Ollama LLM models (`tinyllama` / `phi3:mini`)** directly inside the Docker container without needing any external API keys!
 
 1. Go to **[https://railway.app](https://railway.app)** and sign in with your GitHub account.
 2. Click **"New Project"** -> **"Deploy from GitHub repo"**.
 3. Select **`blazenxt/JARVIS-AI-Assistant`**.
-4. In **Variables**, add:
-   - `AI_BACKEND=groq`
-   - `GROQ_API_KEY=your_free_groq_api_key_here`
-   - `WAKE_WORD=jarvis`
-   - `DEFAULT_CITY=Asansol`
+4. Railway will automatically use our production **`Dockerfile`** (`builder: DOCKERFILE`), install the Ollama Linux daemon, download the lightweight CPU-optimized **`tinyllama`** offline model, and start both Ollama and the JARVIS Web HUD!
 5. Under **Settings -> Networking**, click **"Generate Domain"**.
 6. Open your newly generated public domain (e.g. `https://jarvis-ai-assistant.up.railway.app`) in Chrome or Edge!
 7. Click **"ACTIVATE VOICE (HEY JARVIS)"** on the Web HUD to speak to JARVIS using your browser microphone!

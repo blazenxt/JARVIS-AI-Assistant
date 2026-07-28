@@ -123,23 +123,38 @@ class LLMEngine:
         return response.strip()
 
     def _ask_groq(self, prompt: str) -> str:
-        try:
-            messages = [{"role": "system", "content": JARVIS_SYSTEM_PROMPT}]
-            messages.extend(self.history[-8:]) # keep last 4 turns
-            messages.append({"role": "user", "content": prompt})
+        models_to_try = [
+            config.GROQ_MODEL,
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "llama-3.1-70b-versatile"
+        ]
+        unique_models = []
+        for m in models_to_try:
+            if m not in unique_models:
+                unique_models.append(m)
 
-            completion = self.groq_client.chat.completions.create(
-                model=config.GROQ_MODEL,
-                messages=messages,
-                temperature=0.7,
-                max_tokens=500
-            )
-            reply = completion.choices[0].message.content
-            self._update_history(prompt, reply)
-            return reply
-        except Exception as e:
-            print(f"[Groq API Error] {e}")
-            return ""
+        messages = [{"role": "system", "content": JARVIS_SYSTEM_PROMPT}]
+        messages.extend(self.history[-8:]) # keep last 4 turns
+        messages.append({"role": "user", "content": prompt})
+
+        for mod in unique_models:
+            try:
+                completion = self.groq_client.chat.completions.create(
+                    model=mod,
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=500,
+                    timeout=8.0
+                )
+                reply = completion.choices[0].message.content
+                self._update_history(prompt, reply)
+                return reply
+            except Exception as e:
+                print(f"[Groq API Model '{mod}' Error]: {e}")
+                continue
+
+        return ""
 
     def _ask_gemini(self, prompt: str) -> str:
         try:

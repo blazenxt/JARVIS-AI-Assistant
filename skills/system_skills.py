@@ -22,9 +22,12 @@ except ImportError:
     PSUTIL_AVAILABLE = False
 
 try:
-    import pyautogui
-    PYAUTOGUI_AVAILABLE = True
-except ImportError:
+    if platform.system() in ["Windows", "Darwin"] or os.environ.get("DISPLAY"):
+        import pyautogui
+        PYAUTOGUI_AVAILABLE = True
+    else:
+        PYAUTOGUI_AVAILABLE = False
+except Exception as e:
     PYAUTOGUI_AVAILABLE = False
 
 

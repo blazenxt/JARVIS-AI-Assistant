@@ -12,6 +12,7 @@ from typing import List, Dict
 import config
 
 # Try importing LLM client libraries
+import warnings
 try:
     from groq import Groq
     GROQ_AVAILABLE = True
@@ -19,7 +20,9 @@ except ImportError:
     GROQ_AVAILABLE = False
 
 try:
-    import google.generativeai as genai
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        import google.generativeai as genai
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False

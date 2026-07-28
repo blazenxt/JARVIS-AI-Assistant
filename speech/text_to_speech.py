@@ -8,6 +8,7 @@ with offline fallback support via pyttsx3.
 
 import os
 import time
+import platform
 import asyncio
 import threading
 from pathlib import Path
@@ -21,11 +22,15 @@ try:
 except ImportError:
     EDGE_TTS_AVAILABLE = False
 
-# Try importing pygame for MP3 playback
+# Try importing pygame for MP3 playback (Only on local systems with audio hardware)
+PYGAME_AVAILABLE = False
 try:
+    os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "1"
     import pygame
-    pygame.mixer.init()
-    PYGAME_AVAILABLE = True
+    # Only initialize pygame mixer if we are not on a headless Linux server without audio
+    if platform.system() in ["Windows", "Darwin"] or os.environ.get("DISPLAY"):
+        pygame.mixer.init()
+        PYGAME_AVAILABLE = True
 except Exception:
     PYGAME_AVAILABLE = False
 

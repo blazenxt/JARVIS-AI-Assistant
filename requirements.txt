@@ -21,7 +21,7 @@ google-generativeai>=0.4.0  # For Google Gemini API
 
 # 4. System & OS Automation Skills
 psutil>=5.9.8        # CPU, RAM, Battery monitoring
-pyautogui>=0.9.54    # Screenshots & basic GUI automation
+# pyautogui>=0.9.54  # Optional: For local desktop screenshot automation (requires X11/GUI display)
 
 # 5. Web & Search Skills
 requests>=2.31.0     # Weather, news, and REST APIs

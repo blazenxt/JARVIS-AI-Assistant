@@ -26,7 +26,7 @@ psutil>=5.9.8        # CPU, RAM, Battery monitoring
 # 5. Web & Search Skills
 requests>=2.31.0     # Weather, news, and REST APIs
 wikipedia>=1.4.0     # Wikipedia summary search
-pywhatkit>=5.4       # Play YouTube videos & Google search
+# pywhatkit>=5.4     # Optional: For local desktop YouTube playback automation (requires X11/GUI display)
 
 # 6. Web Dashboard HUD (FastAPI / Server Utilities)
 fastapi>=0.110.0

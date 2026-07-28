@@ -6,6 +6,8 @@ Handles internet searches, Wikipedia queries, opening websites,
 and playing videos on YouTube.
 """
 
+import os
+import platform
 import webbrowser
 from typing import Tuple
 import config
@@ -13,13 +15,15 @@ import config
 try:
     import wikipedia
     WIKIPEDIA_AVAILABLE = True
-except ImportError:
+except Exception:
     WIKIPEDIA_AVAILABLE = False
 
+PYWHATKIT_AVAILABLE = False
 try:
-    import pywhatkit
-    PYWHATKIT_AVAILABLE = True
-except ImportError:
+    if platform.system() in ["Windows", "Darwin"] or os.environ.get("DISPLAY"):
+        import pywhatkit
+        PYWHATKIT_AVAILABLE = True
+except Exception:
     PYWHATKIT_AVAILABLE = False
 
 

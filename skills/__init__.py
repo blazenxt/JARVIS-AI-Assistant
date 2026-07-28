@@ -42,10 +42,11 @@ def dispatch_command(query: str) -> Optional[str]:
 
     # --- 4. WEATHER ---
     if "weather" in cmd or "mausam" in cmd:
-        # Check if city is specified (e.g., "weather in Mumbai")
+        # Smart city extraction (handles "weather in Mumbai", "Jaipur weather", "weather Jaipur", "Mumbai ka mausam")
         city = None
-        if " in " in cmd:
-            city = cmd.split(" in ")[-1].strip().title()
+        clean_str = cmd.replace("what is the weather", "").replace("weather report", "").replace("current weather", "").replace("weather", "").replace("mausam", "").replace("ka", "").replace("ki", "").replace("of", "").replace("for", "").replace("in", "").replace("at", "").replace("?", "").strip()
+        if clean_str and len(clean_str) >= 2:
+            city = clean_str.title()
         return get_weather(city)
 
     # --- 5. NEWS ---
@@ -84,6 +85,18 @@ def dispatch_command(query: str) -> Optional[str]:
             f"I am your personal AI assistant, programmed to assist you with system control, "
             f"web searches, productivity tasks, and intelligent automation, {config.USER_NAME}."
         )
+
+    if any(phrase in cmd for phrase in ["who made you", "who created you", "who built you", "who programmed you", "who developed you", "who is your creator", "kisne banaya"]):
+        return (
+            f"I was created as an advanced multi-modal AI assistant to serve {config.USER_NAME}. "
+            f"My architecture combines modular Python skills with a futuristic Web HUD interface."
+        )
+
+    if any(phrase in cmd for phrase in ["how are you", "kaise ho", "kya haal", "how are you doing"]):
+        return f"All systems are fully operational and running at peak performance, {config.USER_NAME}."
+
+    if any(phrase in cmd for phrase in ["thank you", "thanks", "shukriya", "dhanyavad"]):
+        return f"You are always welcome, {config.USER_NAME}. I am here whenever you need me."
 
     if any(phrase in cmd for phrase in ["tony stark", "iron man", "avengers", "arc reactor", "stark industries", "mark"]):
         return (
@@ -170,6 +183,17 @@ def dispatch_command(query: str) -> Optional[str]:
 
     if any(phrase in cmd for phrase in ["clear todo", "clear to do", "empty tasks"]):
         return clear_todos()
+
+    # --- 13. QUICK MATH & CALCULATIONS ---
+    if any(op in cmd for op in ["+", "-", "*", "/", "plus", "minus", "times"]) and any(c.isdigit() for c in cmd):
+        try:
+            import re
+            expr = re.sub(r'[^0-9+\-*/.]', '', cmd)
+            if expr and len(expr) <= 20:
+                res = eval(expr, {"__builtins__": None}, {})
+                return f"The calculated result is {res}, {config.USER_NAME}."
+        except Exception:
+            pass
 
     # If no skill matched, return None so the LLM Brain handles it!
     return None

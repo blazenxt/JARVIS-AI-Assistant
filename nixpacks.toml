@@ -1,4 +1,0 @@
-# Nixpacks configuration for Railway.app & Render
-# Automatically installs C-libraries needed for Python audio libraries
-[phases.setup]
-nixPkgs = ["python311", "gcc", "portaudio"]

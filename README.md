@@ -4,6 +4,8 @@
 ![JARVIS Banner](https://img.shields.io/badge/AI_Assistant-J.A.R.V.I.S.-00f3ff?style=for-the-badge&logo=python&logoColor=white)
 ![Python Version](https://img.shields.io/badge/Python-3.9%2B-ffbe0b?style=for-the-badge&logo=python)
 ![Web HUD](https://img.shields.io/badge/Sci--Fi_HUD-Iron_Man_Edition-ff3366?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Open Source](https://img.shields.io/badge/Open_Source-%E2%9D%A4%EF%B8%8F-ffbe0b?style=for-the-badge)
 
 Welcome to **J.A.R.V.I.S.** — an elite, multi-modal, highly intelligent personal AI assistant inspired by Tony Stark's iconic AI from Iron Man. This suite combines a robust modular Python backend with an interactive glowing Holographic Web HUD dashboard.
 
@@ -191,5 +193,12 @@ In `.env` or `config.py`, you can change `EDGE_TTS_VOICE` to any supported neura
 - `en-GB-RyanNeural` — Authentic British Jarvis style voice (Default)
 - `en-US-ChristopherNeural` — Deep American male voice
 - `hi-IN-MadhurNeural` — Natural Hindi-English Hinglish voice
+
+---
+
+## 🤝 Open Source & License
+This repository is completely **Open Source under the MIT License**.
+Anyone can free use, fork, modify, contribute, or deploy this project!
+Contributions, issues, and feature requests are always welcome.
 
 Enjoy your personal J.A.R.V.I.S. AI Assistant! ⚡
